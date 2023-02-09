@@ -1,17 +1,17 @@
 #include <iostream>
 using namespace std;
-
 int main() {
-	int N = 0; // N : 배달해야 할 킬로그램
-	int numOfBag = 0; 	// numOfBag : 봉지의 개수
-	while (N >= 0) {
-		if (N % 5 == 0) { // 5로 나눠지면 그냥 5로 나누기
-			numOfBag += (N / 5);
-			cout << numOfBag << endl;
+    int N;
+	cin >> N;
+	int ans = 0;
+	while (N>=0) {
+		if (N % 5 == 0) {	//가장 큰 수로 나누는게 가장 작은수랑 섞어서 나누는 것보다 유리
+			ans += (N / 5);	//나눈 몫을 더한 것이 정답
+			cout << ans << endl;
 			return 0;
 		}
-		N -= 3; // 5로 나눠지지 않으면 3키로그램 봉지에 담고 다시 5키로그램으로 나눠보기
-		numOfBag++;
+		N -= 3;	//3kg을 빼고
+		ans++;	//가방 하나 늘어남
 	}
 	cout << -1 << endl;
 }
