@@ -1,29 +1,35 @@
-#include <iostream>
-#include <stack>
-#include <string>
+#include<iostream>
+#include<vector>
+#include<string>
 using namespace std;
 
-int main(){
-    stack<int>stk;
-    string ans;
-    int increasing = 1; // 오름차순 기록용으로, 1부터 시작하므로 1로 초기화한다.
-    int size; // 만들고 싶은 수열의 크기
-    int num; // 출력하고 싶은 수
+int n, amx;
+int cnt = 0;
+int seq[100001];
+vector<int> v;
+vector<char> ans;
 
-    while (size--){
-        cin >> num;
-        if (num < increasing){ // num = increasing이 될 때 까지 반복
-            ans += '+';
-            stk.push(increasing);
-            increasing++; // 스택에 넣었으므로 1 증가
-        } else if (num = increasing){
-            ans += '-';
-            stk.pop();
-        } else {
-            ans = 'NO';
-            stk.push(100001);
-        }
-    }
-    
-    cout << ans;
+int main()
+{	
+	cin >> n;
+	for (int i = 0; i < n; i++) cin >> seq[i]; // 수열 입력
+
+	for (int i = 1; i <= n; i++)
+	{
+		v.push_back(i);
+		ans.push_back('+');
+
+		// 벡터가 비어있지않고,  cnt번째 수열이 벡터의 마지막 원소와 같을경우
+		while (!v.empty() && v.back() == seq[cnt])
+		{
+			v.pop_back();
+			ans.push_back('-');
+			cnt++;
+		}
+	}
+
+	if (!v.empty()) cout << "NO"; // 수열이 만들어졌다면 벡터가 비어있어야 하므로.
+	else for (int i = 0; i < ans.size(); i++) cout << ans[i] << '\n';
+	
+
 }
