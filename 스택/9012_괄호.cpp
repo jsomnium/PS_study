@@ -20,7 +20,7 @@ int main()
             }
             else if (s[i] == ')'){
                 if (st.empty()) break;
-                if (!st.empty() && st.top == '(') st.pop();
+                if (!st.empty() && st.top() == '(') st.pop();
             }
 		}
 		if (st.empty()) cout << "YES" << endl;
