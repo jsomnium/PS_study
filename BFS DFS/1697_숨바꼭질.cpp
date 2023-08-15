@@ -9,13 +9,13 @@ using namespace std;
 int n, k;
 bool visit[100001]; // 방문 체크
 
-void bfs(int a){
-    queue<pair<int, int>> q; // <수빈이의 위치, 걸리는 시간>
-    q.push(make_pair(a, 0)); // a위치에서 0시간 => 기본 시작
+void bfs(int start){
+    queue<pair<int, int>> q; // <수빈이의 위치, 소요 시간>
+    q.push(make_pair(start, 0)); // start 지점에서 0의 시간에 시작
 
     while(!q.empty()){
-        int x = q.front().first;
-        int cnt = q.front().second;
+        int x = q.front().first; // x : 위치
+        int cnt = q.front().second; // cnt : 시간
         q.pop();
 
         if(x == k){
@@ -39,12 +39,11 @@ void bfs(int a){
                 visit[2*x] = true;
                 q.push(make_pair(2 * x, cnt + 1));
             }
-        } // 각 다음 좌표마다 q에 넣어줘서 모두 탐색
+        } // 모두 탐색
     }
 }
 int main(){
     cin >> n >> k;
-    visit[n] = true; // 종료 시점
     bfs(n);
     return 0;
 }
