@@ -5,39 +5,35 @@
 #include <iostream>
 using namespace std;
 
-int N, M, ans;
-int arr[1001][1001]; // 인접 리스트
+int map[1001][1001];
+bool visited[1001];
+int n, m, result;
 
-void DFS(int x, int y){
-    if(arr[x][y] == 1){
-        arr[x][y] = 0;
-        arr[y][x] = 0;
-        for (int i = 1; i < N; i++){
-            DFS(x, y + i);
-        }
+void dfs(int num){ // 연결된 곳이 없다면 탐색 종료료
+    visited[num] = true;
+    for (int i = 1; i <= n; i++){
+        if (map[num][i] && !visited[i])
+            dfs(i);
     }
-    else return;
 }
 
 int main(){
+    cin >> n >> m;
 
-    cin >> N >> M;
-
-    for (int i = 1; i <= M; i++){ // 인접 리스트 입력받기
+    for (int i = 1; i <= m; i++){
         int a, b;
         cin >> a >> b;
-        arr[a][b] = 1;
-        arr[b][a] = 1;
+        map[a][b] = 1; // 양방향으로 간선만들어주기
+        map[b][a] = 1;
     }
 
-    for (int i = 1; i <= N; i++){
-        for (int j = 1; j <= N; i++){
-            if (arr[i][j] == 1){
-                DFS(i, j);
-                ans += 1;
-            }
+    for (int i = 1; i <= n; i++){
+        if (!visited[i]){
+            result++;
+            dfs(i);
         }
     }
+    cout << result << '\n';
 
-    cout << ans;
+    return 0;
 }
