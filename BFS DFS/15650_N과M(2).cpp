@@ -11,7 +11,6 @@ using namespace std;
 
 int N, M;
 bool Visit[MAX];
-int Arr[MAX];
 
 vector<int> V;
 
@@ -25,7 +24,7 @@ void DFS(int Idx, int Cnt){
     for (int i = Idx; i < N; i++){
         if (Visit[i] == true) continue;
         Visit[i] = true;
-        V.push_back(i + 1);
+        V.push_back(i);
         DFS(i, Cnt + 1);
         V.pop_back();
         Visit[i] = false;
@@ -38,7 +37,7 @@ int main(void){
     cout.tie(NULL);
 
     cin >> N >> M;
-    DFS(0, 0);
+    DFS(1, 0);
 
     return 0;
 }
