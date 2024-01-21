@@ -14,3 +14,4 @@
   * [17087번: 숨바꼭질6](https://velog.io/@gabujwb/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B0%B1%EC%A4%80-17087%EB%B2%88-%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%88-6)
 * ### 다이나믹 프로그래밍
   * [1912번: 연속합](https://velog.io/@gabujwb/C-%EB%B0%B1%EC%A4%80-1912%EB%B2%88-%EC%97%B0%EC%86%8D%ED%95%A9)
+
