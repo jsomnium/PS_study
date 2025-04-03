@@ -19,3 +19,5 @@
 * ### 정렬
   * [42746번: 가장 큰 수](https://velog.io/@gabujwb/PS-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%88%98)
   * [42748번: K번째 수](https://velog.io/@gabujwb/PS-K%EB%B2%88%EC%A7%B8-%EC%88%98)
+  * [42747번: H-Index](https://velog.io/@gabujwb/PS-H-Index)
+  * [86491번: 최소직사각형](https://velog.io/@gabujwb/PS-%EC%B5%9C%EC%86%8C%EC%A7%81%EC%82%AC%EA%B0%81%ED%98%95)
