@@ -3,7 +3,6 @@
 코딩 테스트를 준비하면서 풀이한 문제들을 업로드 합니다.
 
 아래는 설명을 위해 블로그에 작성한 글 목록입니다.
-
 * ### BFS DFS
   *  [1679번: 숨바꼭질](https://velog.io/@gabujwb/C-%EB%B0%B1%EC%A4%80-1697%EB%B2%88-%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%88)
 * ### 스택
@@ -22,3 +21,5 @@
   * [42747번: H-Index](https://velog.io/@gabujwb/PS-H-Index)
 * ### 완전 탐색
   * [86491번: 최소직사각형](https://velog.io/@gabujwb/PS-%EC%B5%9C%EC%86%8C%EC%A7%81%EC%82%AC%EA%B0%81%ED%98%95)
+* ### 연습문제
+  *  [12931번: 자릿수 더하기](https://velog.io/@gabujwb/PS-%EC%9E%90%EB%A6%BF%EC%88%98-%EB%8D%94%ED%95%98%EA%B8%B0)
