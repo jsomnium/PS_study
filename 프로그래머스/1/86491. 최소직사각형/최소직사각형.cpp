@@ -5,15 +5,18 @@
 using namespace std;
 
 int solution(vector<vector<int>> sizes) {
-    int big_max = 0, small_max = 0;
+    int row = 0;
+    int col = 0;
     
-    for (int i = 0; i < sizes.size(); i++) {
-        int width = min(sizes[i][0], sizes[i][1]);
-        int height = max(sizes[i][0], sizes[i][1]);
-        
-        big_max = max(big_max, width);
-        small_max = max(small_max, height);
+    for (int i = 0; i < sizes.size(); i++){
+        if (row == 0){
+            row = max(sizes[i][0], sizes[i][1]);
+            col = min(sizes[i][0], sizes[i][1]);
+        } else {
+            row = max(row, (max(sizes[i][0], sizes[i][1])));
+            col = max(col, (min(sizes[i][0], sizes[i][1])));
+        }
     }
     
-    return big_max * small_max;
+    return row * col;
 }
