@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -7,7 +8,7 @@ int answer = 0;
 bool visited[8] = {0};
 
 void dfs(int cnt, int k, vector<vector<int>> &dungeons){
-    if (cnt > answer) answer = cnt;
+    answer = max(answer, cnt);
     
     for (int i = 0; i < dungeons.size(); i++){
         if (!visited[i] && dungeons[i][0] <= k){
