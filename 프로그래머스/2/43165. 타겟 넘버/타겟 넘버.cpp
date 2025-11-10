@@ -3,22 +3,20 @@
 
 using namespace std;
 
-int cnt = 0;
+int count = 0;
 
-void dfs (int result, vector<int> numbers, int target, int index){
-    if (index == numbers.size()){
-        if (result == target) {
-            cnt++;
-        }
+void dfs(vector<int> numbers, int index, int sum, int target){
+    if (numbers.size() == index){
+        if (sum == target) count++;
         return;
     }
     
-    dfs(result + numbers[index], numbers, target, index + 1);
-    dfs(result - numbers[index], numbers, target, index + 1);
+    dfs(numbers, index + 1, sum + numbers[index], target);
+    dfs(numbers, index + 1, sum - numbers[index], target);
 }
 
 int solution(vector<int> numbers, int target) {
-    dfs(0, numbers, target, 0);
+    dfs(numbers, 0, 0, target);
     
-    return cnt;
+    return count;
 }
