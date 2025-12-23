@@ -1,28 +1,23 @@
-#include<string>
-#include <iostream>
-#include <queue>
 #include <string>
+#include <iostream>
+#include <stack>
 
 using namespace std;
 
 bool solution(string s)
 {
-    bool answer = true;
-    queue<char> Q;
-    
-    for (int i = 0; i < s.length(); i++){
-        if (Q.empty() && s[i] == ')'){
-            return false;
-        }
-        else if (s[i] == '('){
-            Q.push(s[i]);
-        } else {
-            Q.pop();
+    stack<char> st;
+    for (auto str : s){
+        if (str == '(') st.push(')');
+        else if (str == ')'){
+            if (st.empty()) return false;
+            else {
+                st.pop();
+            }
         }
     }
     
-    if (Q.empty()){
-        return true;
-    } else
-        return false;
+    if (!st.empty()) return false;
+    
+    return true;
 }
