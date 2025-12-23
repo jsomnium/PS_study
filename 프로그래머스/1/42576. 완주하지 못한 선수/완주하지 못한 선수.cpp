@@ -1,21 +1,17 @@
 #include <string>
 #include <vector>
-#include <map>
+#include <algorithm>
 
 using namespace std;
 
 string solution(vector<string> participant, vector<string> completion) {
-    map<string, int> m;
+    sort(participant.begin(), participant.end());
+    sort(completion.begin(), completion.end());
     
-    for (auto p : participant){
-        m[p]++;
-    }
-    
-    for (auto c : completion){
-        m[c]--;
-    }
-    
-    for (auto pair : m){
-        if (pair.second > 0) return pair.first;
+    for (int i = 0; i < participant.size(); i++){
+        if (i == participant.size() - 1){
+            return participant[i];
+        } else if (participant[i] != completion[i])
+            return participant[i];
     }
 }
