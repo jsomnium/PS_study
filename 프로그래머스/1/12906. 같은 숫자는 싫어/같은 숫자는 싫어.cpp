@@ -1,25 +1,25 @@
 #include <vector>
 #include <iostream>
-#include <queue>
+#include <stack>
+#include <algorithm>
 
 using namespace std;
 
 vector<int> solution(vector<int> arr) 
 {
-    vector<int> answer;
-    queue<int> q;
+    stack<int> st;
     
     for (auto a : arr){
-        if (q.empty() == true || !q.empty() && (q.back() != a)){
-            q.push(a);
-        } 
+        if (st.empty()) st.push(a);
+        else if (st.top() != a) {st.push(a);}
     }
     
-    int qSize = q.size();
-    for (int i = 0; i < qSize; i++){
-        answer.push_back(q.front());
-        q.pop();
+    vector<int> ans;
+    while (!st.empty()){
+        ans.push_back(st.top());
+        st.pop();
     }
-
-    return answer;
+    
+    reverse(ans.begin(), ans.end());    
+    return ans;
 }
