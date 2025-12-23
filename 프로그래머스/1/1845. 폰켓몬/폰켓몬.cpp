@@ -1,18 +1,11 @@
 #include <vector>
-#include <set>
+#include <unordered_set>
+#include <algorithm>
+
 using namespace std;
 
-int solution(vector<int> nums){
-    set<int> s;
-    int half = nums.size() / 2;
-    
-    for (auto n : nums){
-        s.insert(n);
-    }
-    
-    if (s.size() <= half){
-        return s.size();
-    } else {
-        return half;
-    }
+int solution(vector<int> nums)
+{
+    unordered_set<int> s(nums.begin(), nums.end());
+    return min(s.size(), nums.size() / 2);
 }
