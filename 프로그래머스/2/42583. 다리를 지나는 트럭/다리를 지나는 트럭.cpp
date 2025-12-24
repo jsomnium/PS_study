@@ -1,38 +1,36 @@
-#include <string>
-#include <vector>
-#include <queue>
- 
-using namespace std;
- 
-int solution(int bridge_length, int weight, vector<int> truck_weights) {
-    int answer = 0;
-    int next_truck = 0;     // 대기 트럭 중 맨 앞의 트럭의 인덱스
-    int weight_sum = 0;     // 다리 위에 있는 트럭의 무게 합
-    queue<int> on_bridge;   // 다리 위에 있는 트럭
- 
-    // 다리 위에 있을 수 있는 트럭의 수 만큼 미리 넣어둠
-    for (int i = 0; i < bridge_length; i++)
-        on_bridge.push(0);
- 
-    while (!on_bridge.empty()) {
-        answer++;
-        weight_sum -= on_bridge.front();
-        on_bridge.pop();
- 
-        // 대기 트럭이 있는 경우
-        if (next_truck < truck_weights.size()) {
-            // 다리 무게 조건 만족시, 트럭 push
-            if (weight_sum + truck_weights[next_truck] <= weight) {
-                weight_sum += truck_weights[next_truck];
-                on_bridge.push(truck_weights[next_truck]);
-                next_truck++;
-            }
-            // 만족 X시, 0 push
-            else {
-                on_bridge.push(0);
-            }
-        }
-    }
- 
-    return answer;
+#include <string>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+    queue<int> Truck;
+    queue<int> Bridge;
+    int answer = 0;
+    int bridge_weight = 0;
+    
+    for (auto t: truck_weights) Truck.push(t); // 대기큐
+    for (int i = 0; i < bridge_length; i++) Bridge.push(0);
+    
+    while(!Truck.empty()){
+        answer++;
+        
+        bridge_weight -= Bridge.front();
+        Bridge.pop();
+        
+        // 현재 다리 무게 + 다음 트럭 무게 체크
+        if (bridge_weight + Truck.front() <= weight){
+            // 무게 여유가 있으면 트럭 진입
+            Bridge.push(Truck.front());
+            bridge_weight += Truck.front();
+            Truck.pop();
+        } else {
+            // 여유가 없으면 0을 밀어넣음
+            Bridge.push(0);
+        }
+    }
+    
+    // 마지막 트럭이 다리에 올라간 시점에서 루프가 끝남
+    // 그 트럭이 다리를 완전히 건너려면 '다리 길이'만큼 시간이 더 필요함
+    return answer + bridge_length;
 }
