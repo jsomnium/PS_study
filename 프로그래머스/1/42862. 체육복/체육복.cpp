@@ -1,55 +1,41 @@
 #include <string>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
 int solution(int n, vector<int> lost, vector<int> reserve) {
-    // 비교를 위한 오름차순 정렬
-    sort(lost.begin(), lost.end());
-    sort(reserve.begin(), reserve.end());
+    int answer = 0;
+    vector<int> student(n, 1);
     
-    // 도난, 여벌 중복 학생 제거
-    // 중복 학생들을 제거한 새로운 newLost, newReserve 배열을 만든다
-    vector<int> newLost;
-    vector<int> newReserve;
-    vector<bool> used(reserve.size(), false);
-    
-    // newLost 배열 만들기
-    for (int x : lost){
-        bool isDuplicated = false;
-        
-        // 중복 찾기
-        for (int i = 0; i < reserve.size(); ++i){
-            if (!used[i] && reserve[i] == x){
-                isDuplicated = true; // 중복으로 처리
-                used[i] = true; // 입은 것으로 처리
-                break;
-            }
-        }
-        
-        // 중복을 제외한 새로운 배열 추가
-        if (!isDuplicated)
-            newLost.push_back(x);
+    // 인덱스 보정 (학생 번호는 1부터 시작하므로 -1 해줌)
+    for (auto l : lost){
+        student[l-1]--; 
     }
     
-    // newReserve 배열 만들기
-    for (int j = 0; j < reserve.size(); ++j)
-        if (!used[j]) newReserve.push_back(reserve[j]);
+    for (auto r : reserve){
+        student[r-1]++;
+    }
     
-    // 규칙을 위한 오름차순 정렬
-    sort(newLost.begin(), newLost.end());
-    sort(newReserve.begin(), newReserve.end());
-    
-    // 옷 빌려주기
-    for (int r : newReserve){
-        for (auto it = newLost.begin(); it != newLost.end(); ++it){
-            if (abs(r - *it) == 1){
-                newLost.erase(it);
-                break;
+    // 빌려주기 로직
+    for (int i = 0; i < n; i++){
+        // 여벌이 있는 학생(2벌)만 빌려줄 수 있음
+        if (student[i] == 2){
+            // 앞 번호 학생에게 빌려주기
+            if (i > 0 && student[i-1] == 0){
+                student[i-1]++;
+                student[i]--;
+            } 
+            // 뒷 번호 학생에게 빌려주기 (앞 사람에게 못 빌려줬을 때만 실행됨)
+            else if (i < n - 1 && student[i+1] == 0){
+                student[i+1]++;
+                student[i]--;
             }
         }
     }
     
-    return n - (int)newLost.size();
+    for (auto s : student){
+        if (s >= 1) answer++;
+    }
+    
+    return answer;
 }
