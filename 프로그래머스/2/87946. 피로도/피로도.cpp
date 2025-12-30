@@ -7,6 +7,7 @@ using namespace std;
 int answer = 0;
 bool visited[8] = {0};
 
+// 완전탐색, 백트래킹
 void dfs(int cnt, int k, vector<vector<int>> &dungeons){
     answer = max(answer, cnt);
     
