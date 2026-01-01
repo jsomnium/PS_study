@@ -55,6 +55,7 @@ int bfs(const vector<vector<int>>& maps, int maxRow, int maxCol) {
 // solution 함수는 bfs 함수를 호출하여 결과를 반환
 int solution(vector<vector<int>> maps)
 {
+    // n * m 크기이므로 행이 m개 열이 n개
     int maxRow = maps.size();
     int maxCol = maps[0].size();
 
