@@ -3,6 +3,7 @@
 #include <algorithm>
 using namespace std;
 
+// 정렬 기준
 bool comp (vector<int>&a, vector<int> b){
     return a[2] < b[2];
 }
