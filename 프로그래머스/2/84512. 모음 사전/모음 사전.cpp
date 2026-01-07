@@ -6,6 +6,7 @@ string vowels = "AEIOU";
 int answer = 0;
 int order = 0;
 
+// 사전 순서대로 단어를 하나씩 다 만들어보면서 순서를 센다
 void dfs(string current, string& target) {
     if (current == target) {
         answer = order;
