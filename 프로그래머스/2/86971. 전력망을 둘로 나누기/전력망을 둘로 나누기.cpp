@@ -35,11 +35,11 @@ int solution(int n, vector<vector<int>> wires) {
             graph[b].push_back(a);
             }
 
-    memset(visited, false, sizeof(visited));
-    int group1 = dfs(1);
-    int group2 = n - group1;
-    
-    answer = min(answer, abs(group1 - group2));
+        memset(visited, false, sizeof(visited));
+        int group1 = dfs(1);
+        int group2 = n - group1;
+
+        answer = min(answer, abs(group1 - group2));
     }
     
     return answer;
