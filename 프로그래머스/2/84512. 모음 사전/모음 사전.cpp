@@ -3,22 +3,22 @@
 using namespace std;
 
 string vowels = "AEIOU";
-int answer = 0;
-int order = 0;
+int answer = 0; // 정답
+int count = 0; // 몇 번째 단어인지 횟수 계산
 
-// 사전 순서대로 단어를 하나씩 다 만들어보면서 순서를 센다
-void dfs(string current, string& target) {
-    if (current == target) {
-        answer = order;
+void dfs(string cur_str, string word){
+    if (cur_str == word){
+        answer = count;
         return;
     }
 
-    if (current.length() >= 5) return;
-
-    for (int i = 0; i < 5; i++) {
-        order++;
-        dfs(current + vowels[i], target);
-        if (answer != 0) return; // 찾았으면 바로 종료
+    if (cur_str.length() >= 5) return;
+    
+    for (int i = 0; i < 5; i++){
+        count++;
+        dfs(cur_str + vowels[i], word);
+        if (answer != 0) return;
+        // answer가 0이 아니라면 정답을 찾은 것이므로 dfs 탐색 종료
     }
 }
 
