@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include <algorithm> // sort 사용을 위해 필요
+#include <algorithm>
 
 using namespace std;
 
@@ -43,7 +43,7 @@ int solution(int n, vector<vector<int>> costs) {
     for (int i = 0; i < costs.size(); i++) {
         int start = costs[i][0];
         int end = costs[i][1];
-        int cost = costs[i][2];
+        int cost = costs[i][2]; // 간선의 비용
         
         // 두 섬의 부모가 다르면 (사이클이 형성되지 않으면) 연결
         if (getParent(parent, start) != getParent(parent, end)) {
