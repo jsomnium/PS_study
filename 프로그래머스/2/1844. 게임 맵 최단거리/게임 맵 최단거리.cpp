@@ -11,7 +11,7 @@ int bfs(const vector<vector<int>>& maps, int maxRow, int maxCol) {
     // 각 칸까지의 최단 거리를 저장하는 배열. -1은 아직 방문하지 않았음을 의미.
     // 0번 인덱스부터 시작하므로 maps의 실제 크기와 동일하게 초기화
     vector<vector<int>> distances(maxRow, vector<int>(maxCol, -1));
-
+    
     // 큐: {현재까지의 이동 거리, {현재 행, 현재 열}}
     queue<pair<int, pair<int, int>>> q;
 
