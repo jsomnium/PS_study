@@ -37,7 +37,6 @@ int solution(string begin, string target, vector<string> words) {
         
         for (int i = 0; i < words.size(); i++){
             if (!visited[i] && isDiffOne(prevWord, words[i])){
-                // 방문한 적이 없고, 한 알파벳만 다르다면
                 q.push(make_pair(changeCnt + 1, words[i]));
                 visited[i] = true;
             }
