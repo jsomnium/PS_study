@@ -1,41 +1,38 @@
 #include <string>
 #include <vector>
 #include <set>
-
 using namespace std;
 
 int solution(int N, int number) {
-    if (N == number) return 1;
-    vector<set<int>> dp(9);
+    vector <set<int>> dp(9);
+    dp[1].insert(N);
     
-    // 5, 55 와 같은 연산 없는 숫자 구하기
+    // 같은 수 일 경우 바로 return하기
+    if (N == number) return 1; 
+    
+    // 2 이상부터는 N 사용 횟수 카운트로 dp식 세워서 목표 number 찾기
+    
+    // 5, 55, 555, 5555 와 같은 연속 숫자 포함
     int originalNum = N;
     for (int i = 2; i <= 8; i++){
-        originalNum = originalNum * 10 + N;
+        originalNum = 10 * originalNum + N;
         dp[i].insert(originalNum);
     }
     
-    // 시작점
-    dp[1].insert(N);
-    
-    // dp 점화식 연산
+    // 모든 연산 후 숫자 찾기
     for (int i = 2; i <= 8; i++){
         for (int j = 1; j < i; j++){
-            for (int a : dp[i-j]){
-                for (int b : dp[j]){
+            for (int a : dp[i - j]){
+                for (int b : dp [j]){
                     dp[i].insert(a + b);
                     dp[i].insert(a - b);
                     dp[i].insert(a * b);
-                    if (b != 0 && a % b == 0)
-                        dp[i].insert(a / b);
+                    if (b != 0 && a % b == 0) dp[i].insert(a / b);
                 }
             }
         }
-        
-        // 목표 숫자를 찾으면 바로 return
-        if (dp[i].count(number)) return i;
+    if(dp[i].count(number)) return i; // 최솟값을 찾는 것이므로 바로 return
     }
     
-    // 못 찾을 시 -1
     return -1;
 }
