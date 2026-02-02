@@ -1,13 +1,16 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <iostream>
 using namespace std;
 
-int getParent(vector<int>& parent, int node){
-    if (parent[node] == node) return node;
+bool cmp(vector<int> a, vector<int> b){
+    return a[2] < b[2];
+}
 
-    // 최상위 부모 노드를 찾고 동시에 갱신한다
+int getParent(vector<int>& parent, int node){
+    // 최상위 노드라면 바로 반환
+    if (parent[node] == node) return node;
+    
     return parent[node] = getParent(parent, parent[node]);
 }
 
@@ -19,22 +22,16 @@ void unionParent(vector<int>& parent, int startNode, int endNode){
     else parent[rootA] = rootB;
 }
 
-bool cmp(vector<int> a, vector<int> b){
-    return a[2] < b[2];
-}
-
 int solution(int n, vector<vector<int>> costs) {
     int answer = 0;
-    vector<int> parent;
     
-    // parent 배열 초기화
-    for (int i = 0; i < n; i++) parent.push_back(i);
+    vector<int> parent(n, -1);
+    for (int i = 0; i < n; i++) parent[i] = i;
     
-    // 비용 기준 오름차순 정렬
-    sort(costs.begin(), costs.end(), cmp);
+    sort(costs.begin(), costs.end(), cmp); // 비용이 가장 작은 것 부터 정렬
     
     // 모든 간선을 돌면서 연결 가능하면 연결한다
-    for (int i = 0; i < costs.size(); i++){
+    for (int i = 0; i < costs.size(); ++i){
         int startNode = costs[i][0];
         int endNode = costs[i][1];
         
