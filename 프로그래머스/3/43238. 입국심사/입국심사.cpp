@@ -19,8 +19,6 @@ long long solution(int n, vector<int> times) {
     sort(times.begin(), times.end());
 
     long long min = 1;
-
-	// 주의. 데이터타입
     long long max = n * (long long)times.back();
 
 	/* 이분탐색 */
