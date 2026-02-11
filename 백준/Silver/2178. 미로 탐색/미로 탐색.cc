@@ -1,63 +1,56 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <string> // 문자열 입력을 위해 추가
-
+#include <string>
 using namespace std;
 
 int dr[4] = {0, 0, 1, -1};
 int dc[4] = {1, -1, 0, 0};
 
-int bfs(vector<vector<int>>& map, vector<vector<bool>>& visited, int M, int N) {
-    queue<pair<pair<int, int>, int>> q;
+int main(){
+    // N x M 사이즈이므로, 행이 M개 열이 N개이다
+    int N, M;
+    cin >> M >> N;
+    vector<vector<int>> map (M, vector(N, 0));
+    vector<vector<bool>> visited (M, vector(N, false));
     
-    // 시작점 (0, 0), 시작위치도 칸을 센다
+    // 각각의 수들은 붙어서 들어오므로, string으로 입력받아 처리한다
+    for (int i = 0; i < M; i++){
+        string s = "";
+        cin >> s;
+        
+        // 문자를 숫자로 변환
+        for (int j = 0; j < N; j++){
+            map[i][j] = s[j] - '0';
+        }
+    }
+    
+    // BFS: (0, 0)에서 (N, M)으로 가는 최소 거리를 구한다
+    queue<pair<pair<int, int>, int>> q;
     q.push({{0, 0}, 1});
     visited[0][0] = true;
     
-    while(!q.empty()){
+    while (!q.empty()){
         int curRow = q.front().first.first;
         int curCol = q.front().first.second;
         int count = q.front().second;
         q.pop();
         
-        // 목표 지점 도달 시 리턴
-        if (curRow == M - 1 && curCol == N - 1) return count;
+        if (curRow == M - 1 && curCol == N - 1){
+            cout << count << endl;
+            return 0;
+        }
         
         for (int d = 0; d < 4; d++){
             int nextRow = curRow + dr[d];
             int nextCol = curCol + dc[d];
             
-            // 맵 범위 내에 있고, 길(1)이며, 방문하지 않은 경우
-            if (nextRow >= 0 && nextRow < M && nextCol >= 0 && nextCol < N) {
-                if (map[nextRow][nextCol] == 1 && !visited[nextRow][nextCol]){
-                    visited[nextRow][nextCol] = true; // 방문 표시
-                    q.push({{nextRow, nextCol}, count + 1});
-                }
+            if (nextRow >= 0 && nextCol >= 0 && nextRow < M && nextCol < N && map[nextRow][nextCol] == 1 && visited[nextRow][nextCol] == false){
+                visited[nextRow][nextCol] = true;
+                q.push({{nextRow, nextCol}, count + 1});
             }
         }
     }
-    return -1; // 도달할 수 없는 경우
-}
-
-int main() {
-    int N, M;
-    if (!(cin >> M >> N)) return 0; // 행 M, 열 N 입력
     
-    vector<vector<int>> map(M, vector<int>(N, 0));
-    vector<vector<bool>> visited(M, vector<bool>(N, false));
-    
-    // 미로 입력 (숫자가 붙어서 들어오는 경우를 대비해 string 사용 권장)
-    for (int i = 0; i < M; i++) {
-        string line;
-        cin >> line;
-        for (int j = 0; j < N; j++) {
-            map[i][j] = line[j] - '0'; // 문자를 숫자로 변환
-        }
-    }
-    
-    // 결과 출력
-    cout << bfs(map, visited, M, N) << endl;
-    
-    return 0;
+    return -1;
 }
