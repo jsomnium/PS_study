@@ -1,44 +1,41 @@
 #include <iostream>
-#include <vector>
 #include <set>
+#include <vector>
 
 using namespace std;
 
-int main() {
-    int A, P;
-    cin >> A >> P;
-
-    vector<int> D; // 숫자를 순서대로 저장
-    set<int> D_set; // 중복 체크용
-
-    int current = A;
-
-    // 중복된 숫자를 찾을 때까지 반복
-    while (D_set.count(current) == 0) {
-        D_set.insert(current);
-        D.push_back(current);
-
-        int nextNum = 0;
-        int temp = current;
-
-        // 자릿수 분리 및 P제곱 합 계산
-        while (temp > 0) {
+int main(){
+    // 입출력
+    int START_NUMBER, MULTIPLE_COUNT;
+    cin >> START_NUMBER >> MULTIPLE_COUNT;
+    
+    vector<int> v;
+    set<int> s;
+    
+    // 중복된 수를 찾을 때 까지 반복한다
+    int curNumber = START_NUMBER;
+    while (s.count(curNumber) == 0){
+        v.push_back(curNumber);
+        s.insert(curNumber);
+        
+        int nextNumber = 0;
+        int temp = curNumber;
+        
+        while (temp > 0){
             int digit = temp % 10;
             int multi = 1;
-            for (int j = 0; j < P; j++) multi *= digit;
-            nextNum += multi;
+            for (int j = 0; j < MULTIPLE_COUNT; j++) multi *= digit;
+            nextNumber += multi;
             temp /= 10;
         }
-        current = nextNum;
+        curNumber = nextNumber;
     }
-
-    // 반복이 시작된 숫자(current)가 벡터의 몇 번째 인덱스에 있는지 찾기
-    for (int i = 0; i < D.size(); i++) {
-        if (D[i] == current) {
-            cout << i << endl; // 인덱스가 곧 "앞에 남은 숫자의 개수"
+    
+    // 중복된 수를 찾았다면, 반복 시작된 숫자 curNumber가 벡터의 몇 번째 인덱스인지 계산
+    for (int i = 0; i < v.size(); i++){
+        if (v[i] == curNumber){
+            cout << i << endl;
             return 0;
         }
     }
-
-    return 0;
 }
