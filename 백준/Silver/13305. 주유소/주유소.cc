@@ -1,32 +1,32 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
-int main(){
-    // 도시의 개수
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int N;
     cin >> N;
 
-    // 원 안의 수: 주유소의 리터당 가격
-    // 도로 위의 수: 도로의 길이 (소모하는 기름)
-    vector<int> LoadLength(N - 1, 0);
-    vector<int> OilPrice(N, 0);
-
+    vector<long long> LoadLength(N - 1);
     for (int i = 0; i < N - 1; i++) cin >> LoadLength[i];
+
+    vector<long long> OilPrice(N);
     for (int i = 0; i < N; i++) cin >> OilPrice[i];
 
-    // 만약 현재 도시의 기름 가격보다, 다음 도시의 기름 가격이 더 싸다면 다음 도시에서 기름을 더 채운다
-    int cur_oil_price;
-    int final_price = 0;
+    long long final_price = 0;
+    long long min_price = OilPrice[0];
 
-    for (int i = 0; i < N - 1;)
-    {
-        cur_oil_price = OilPrice[i];
-
-        while (cur_oil_price <= OilPrice[i]){
-            final_price += cur_oil_price * LoadLength[i];
-            i++;
+    for (int i = 0; i < N - 1; i++) {
+        // 지금까지 본 주유소 중 더 싼 곳이 있다면 최저가 갱신
+        if (OilPrice[i] < min_price) {
+            min_price = OilPrice[i];
         }
+
+        // 현재 가장 싼 기름값으로 다음 도시까지 이동
+        final_price += (min_price * LoadLength[i]);
     }
 
     cout << final_price;
