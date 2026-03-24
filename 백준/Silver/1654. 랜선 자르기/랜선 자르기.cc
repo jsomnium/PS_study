@@ -11,32 +11,30 @@ int main() {
     int K, N;
     cin >> K >> N;
 
-    vector<long long> lan(K);
-    long long max_len = 0;
-    for (int i = 0; i < K; i++) {
+    vector<long long> lan(K, 0);
+    for (int i = 0; i < K; i++)
         cin >> lan[i];
-        if (lan[i] > max_len) max_len = lan[i];
-    }
 
-    long long low = 1;
-    long long high = max_len;
+    sort(lan.begin(), lan.end());
+
     long long answer = 0;
+    long long low = 1; // 랜선 길이가 0이 될 순 없으니, 최솟값 1에서 시작한다
+    long long high = lan.back();
 
-    while (low <= high) {
+    // low와 high가 만날 때까지 검사한다
+    while(low <= high){
         long long mid = low + (high - low) / 2;
-        long long cnt = 0;
+        int cnt = 0;
 
-        for (int i = 0; i < K; i++) {
-            cnt += (lan[i] / mid);
+        for (auto l : lan){
+            cnt += l / mid;
         }
 
-        if (cnt >= N) {
-            // N개 이상 만들 수 있다면?
-            // 현재 mid는 정답 후보! 더 큰 길이를 찾아보자
+        if (cnt >= N){
+            // 정답 업데이트
             answer = mid;
             low = mid + 1;
         } else {
-            // N개도 못 만든다면? 너무 길게 자른 것! 길이를 줄이자.
             high = mid - 1;
         }
     }
