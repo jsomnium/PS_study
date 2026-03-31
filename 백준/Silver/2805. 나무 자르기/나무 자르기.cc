@@ -1,45 +1,40 @@
 #include <iostream>
 #include <algorithm>
-#include <vector> // 추가!
+#include <vector>
 
 using namespace std;
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    int N;
-    long long M;
+int main(){
+    long long N, M;
     cin >> N >> M;
-
-    vector<long long> tree(N);
-    long long high = 0;
+    vector<long long> trees(N, 0);
+    
+    long long hi = 0;
     for (int i = 0; i < N; i++) {
-        cin >> tree[i];
-        if (tree[i] > high) high = tree[i];
+        cin >> trees[i];
+        if (hi < trees[i]) hi = trees[i];
     }
-
-    long long low = 0;
+    
+    sort(trees.begin(), trees.end());
+    
+    long long lo = 0;
     long long ans = 0;
-
-    while (low <= high) {
-        long long mid = low + (high - low) / 2;
-        long long total_height = 0;
-
-        for (auto t : tree) {
-            if (t > mid) {
-                total_height += (t - mid);
-            }
+    
+    while (lo <= hi){
+        long long mid = lo + (hi - lo) / 2;
+        long long tempHeight = 0;
+        
+        for (int t : trees){
+            if (t > mid) tempHeight += (t - mid);
         }
-
-        if (total_height >= M) {
-            ans = mid;      
-            low = mid + 1;  
+        
+        if (tempHeight >= M){
+            ans = mid;
+            lo = mid + 1;
         } else {
-            high = mid - 1;
+            hi = mid - 1;
         }
     }
-
-    cout << ans;
-    return 0;
+    
+    cout << ans << endl;
 }
