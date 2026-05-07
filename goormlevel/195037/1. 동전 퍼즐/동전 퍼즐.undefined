@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    // 1. 현재 동전 배치 입력
+    int H1, W1;
+    if (!(cin >> H1 >> W1)) return 0;
+    vector<string> vec1(H1);
+    int totalCoins = 0;
+    for (int i = 0; i < H1; i++) {
+        cin >> vec1[i];
+        // 전체 동전 개수 세기
+        for (char c : vec1[i]) {
+            if (c == 'O') totalCoins++;
+        }
+    }
+
+    // 2. 목표 동전 배치 입력
+    int H2, W2;
+    if (!(cin >> H2 >> W2)) return 0;
+    vector<string> vec2(H2);
+    for (int i = 0; i < H2; i++) {
+        cin >> vec2[i];
+    }
+
+    int maxOverlap = 0;
+
+    // 3. 모든 오프셋(이동 거리)에 대해 겹치는 동전 수 계산
+    for (int dy = -H1 + 1; dy < H2; dy++) {
+        for (int dx = -W1 + 1; dx < W2; dx++) {
+            int currentOverlap = 0;
+            
+            for (int h1 = 0; h1 < H1; h1++) {
+                for (int w1 = 0; w1 < W1; w1++) {
+                    int h2 = h1 + dy;
+                    int w2 = w1 + dx;
+
+                    // vec1의 동전 위치가 vec2의 범위 안에 들어오고,
+                    // 그 위치에도 동전('O')이 있다면 겹치는 것으로 간주
+                    if (h2 >= 0 && h2 < H2 && w2 >= 0 && w2 < W2) {
+                        if (vec1[h1][w1] == 'O' && vec2[h2][w2] == 'O') {
+                            currentOverlap++;
+                        }
+                    }
+                }
+            }
+            maxOverlap = max(maxOverlap, currentOverlap);
+        }
+    }
+
+    // 4. 결과 출력: (전체 동전 개수) - (최대한 겹쳤을 때의 개수)
+    // 겹치는 동전들은 자리를 옮길 필요가 없기 때문입니다.
+    cout << totalCoins - maxOverlap << endl;
+
+    return 0;
+}
