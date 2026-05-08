@@ -30,27 +30,24 @@ int main() {
     int maxOverlap = 0;
 
     // 3. 모든 오프셋(이동 거리)에 대해 겹치는 동전 수 계산
-    for (int dy = -H1 + 1; dy < H2; dy++) {
-        for (int dx = -W1 + 1; dx < W2; dx++) {
-            int currentOverlap = 0;
-            
-            for (int h1 = 0; h1 < H1; h1++) {
-                for (int w1 = 0; w1 < W1; w1++) {
-                    int h2 = h1 + dy;
-                    int w2 = w1 + dx;
+    for (int dx = -W1 + 1; dx < W2; dx++){
+			for (int dy = -H1 + 1; dy < H2; dy++){
+				int overlap = 0;
 
-                    // vec1의 동전 위치가 vec2의 범위 안에 들어오고,
-                    // 그 위치에도 동전('O')이 있다면 겹치는 것으로 간주
-                    if (h2 >= 0 && h2 < H2 && w2 >= 0 && w2 < W2) {
-                        if (vec1[h1][w1] == 'O' && vec2[h2][w2] == 'O') {
-                            currentOverlap++;
-                        }
-                    }
-                }
-            }
-            maxOverlap = max(maxOverlap, currentOverlap);
-        }
-    }
+				for (int i = 0; i < H1; i++){
+					for (int j = 0; j < W1; j++){
+						int h2 = i + dy;
+						int w2 = j + dx;
+						if (h2 >= 0 && h2 < H2 && w2 >= 0 && w2 < W2) {
+						    if (vec1[i][j] == 'O' && vec2[h2][w2] == 'O')
+									overlap++;
+						}
+					}
+				}
+
+				maxOverlap = max(maxOverlap, overlap);
+			}
+		}
 
     // 4. 결과 출력: (전체 동전 개수) - (최대한 겹쳤을 때의 개수)
     // 겹치는 동전들은 자리를 옮길 필요가 없기 때문입니다.
