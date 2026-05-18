@@ -1,39 +1,40 @@
 #include <string>
 #include <vector>
 #include <queue>
+
 using namespace std;
 
 int solution(int n, vector<vector<int>> computers) {
-    int networkCnt = 0;
+    vector<vector<int>> adj(n + 1);
     
-    vector<vector<int>> adj(n);
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            if (i != j && computers[i][j] == 1)
-                adj[i].push_back(j);
-    
-    vector<bool> visited(n, false);
-    queue<int> q;
-    
-    for (int i = 0; i < n; i++){
-        if (visited[i]) continue;
-        
-        q.push(i);
-        visited[i] = true;
-        
-        while (!q.empty()){
-            int front = q.front();
-            q.pop();
+    for (int i = 0; i < n; ++i){
+        for (int j = 0; j < n; ++j){
+            if (i == j || computers[i][j] == 0) continue;
             
-            for (auto a : adj[front]){
-                if (visited[a]) continue;
-                visited[a] = true;
-                q.push(a);
-            }
+            adj[i].push_back(j);
+            adj[j].push_back(i);
         }
-        
-        networkCnt++;
     }
     
-    return networkCnt;
+    queue<int> q;
+    vector<bool> visited(n, false);
+    int answer = 0;
+    
+    for (int cmp = 0; cmp < n; ++cmp){
+        if (visited[cmp]) continue;
+        
+        q.push(cmp);
+        answer++;
+        while(!q.empty()){
+            int front = q.front(); q.pop();
+            
+            for (auto c : adj[front]){
+                if (visited[c]) continue;
+                visited[c] = true;
+                q.push(c);
+            }
+        }
+    }
+    
+    return answer;
 }
